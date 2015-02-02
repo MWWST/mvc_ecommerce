@@ -15,12 +15,31 @@
 			$list_cart=$this->session->userdata('cart');
 			// var_dump($product);
 			$list_cart[]= array(
-					'product_name'=>$product['name'], 'product_price'=>$product['price'], 'product_quan'=>$this->input->post('quantity')
+					'product_id'=>$product['ID'],'product_name'=>$product['name'], 'product_price'=>$product['price'], 'product_quan'=>$this->input->post('quantity')
 				);
 			$this->session->set_userdata('cart',$list_cart);
 			// var_dump($this->session->all_userdata());
-			var_dump($list_cart);
+			// var_dump($list_cart);
+			redirect('/');
 		}
+
+		public function checkout(){
+			$this->load->view('cart');
+
+		}
+
+		public function buy(){
+			$this->load->model('Product');
+			
+		}
+
+		public function remove() {
+			// $this->session_unset($id);
+			redirect('/products/checkout');
+
+		}
+
+
 
 	}
 

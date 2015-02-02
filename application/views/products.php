@@ -48,7 +48,7 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="#">Ecommerce Baby</a>
+			      <a class="navbar-brand" href="#">Ecommerce</a>
 			    </div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -79,7 +79,7 @@
 					    			// var_dump($item);
 					    		}
 					    		echo"</table>";
-					    		echo "<button class='btn btn-success'>Checkout</button>";
+					    		echo "<a href='/products/checkout/'<button class='btn btn-success'>Checkout</button></a>";
 					    	} ?>
 					    </ul>
 					  </li>
