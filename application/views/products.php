@@ -65,22 +65,39 @@
 					    </a>
 					    <ul class="dropdown-menu" role="menu">
 
-					    	<?php if($this->session->userdata('cart')) {
-					    		echo "<table class='minicart'>
+
+					    	<?php 
+					    		  // var_dump($this->session->all_userdata());
+					    		 if ($this->session->userdata('cart')) {
+					    		 	echo "<table class='minicart'>
 					    		<thead>
 					    			<th>Product</th>
 					    			<th>Price</th>
 					    			<th>Quan</th>
 				    			</thead>";
-					    		$cart_array=$this->session->userdata('cart');
-					    		krsort($cart_array);
-					    		foreach ($cart_array as $cartkeys => $item) {
-					    			echo "<tr><td>".$item['product_name']." "."</td><td>".$item['product_price']."</td><td>"." ".$item['product_quan']."</td></tr>";
-					    			// var_dump($item);
-					    		}
-					    		echo"</table>";
-					    		echo "<a href='/products/checkout/'<button class='btn btn-success'>Checkout</button></a>";
-					    	} ?>
+					    		 	
+					    		 }
+					    		  $cartsession = $this->session->userdata('cart');
+
+					    		  foreach ($cartsession as $key => $sessioncart) {
+					    		  	
+					    		  	foreach ($value as $minikey => $valuecart) {
+
+					    		  		
+					    		  		if ($sessioncart['product_id'] == $valuecart['ID']){
+					    		  			echo "<tr><td>".$valuecart['name']."</td><td>".$valuecart['price']."</td><td>".$sessioncart['product_quan']."</td><tr>";
+
+					    		  		}
+					    		  	}
+					    		  }
+					    		  echo "</table>"
+					      //         foreach ($value as $mini_cart => $cartrecord) {
+
+					    		//  {
+					    		// 	echo  $cartrecord['name'].$this->session->userdata('cart');
+					    		// }
+					    	?>
+					   
 					    </ul>
 					  </li>
 					</ul>
