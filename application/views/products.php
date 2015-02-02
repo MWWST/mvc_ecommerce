@@ -15,15 +15,25 @@
 		.spinner{
 			width:30px;
 		}
+		.dropdown-menu {
+			width:300px;
+		}
+
+		.item {
+			padding-left:20px;
+		}
+
+		.minicart td {
+			padding-right:20px;
+		}
 		</style>
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script type = "text/javascript"> 
-		    $(document).ready(function(){
-		    	// alert ('jquery yes');
-						$( ".spinner" ).spinner({min:0});
-		    	
-  });
+		//     $(document).ready(function(){
+		//     	// alert ('jquery yes');
+		// 				$( ".spinner" ).spinner({min:0});
+  // });
   </script>
 	</head>
 	<body>
@@ -48,7 +58,32 @@
 			        <li><a href="#">Link</a></li>
 			        </li> -->
 			      </ul>
-			    	<p class="navbar-right"><a href="/products/cart">Your Cart</a></p>
+			    	<ul class="nav nav-tabs navbar-right">
+  						<li role="presentation" class="dropdown">
+    				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+      Your Cart <span class="caret"></span>
+					    </a>
+					    <ul class="dropdown-menu" role="menu">
+
+					    	<?php if($this->session->userdata('cart')) {
+					    		echo "<table class='minicart'>
+					    		<thead>
+					    			<th>Product</th>
+					    			<th>Price</th>
+					    			<th>Quan</th>
+				    			</thead>";
+					    		$cart_array=$this->session->userdata('cart');
+					    		krsort($cart_array);
+					    		foreach ($cart_array as $cartkeys => $item) {
+					    			echo "<tr><td>".$item['product_name']." "."</td><td>".$item['product_price']."</td><td>"." ".$item['product_quan']."</td></tr>";
+					    			// var_dump($item);
+					    		}
+					    		echo"</table>";
+					    		echo "<button class='btn btn-success'>Checkout</button>";
+					    	} ?>
+					    </ul>
+					  </li>
+					</ul>
 			    </div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 			</nav>
@@ -66,10 +101,18 @@
 
 					</thead>
 					<?php foreach ($value as $key => $record){
-							
-			  		echo "<form action='products/add/".$record['ID']."'/ method='post'><tr><td>".$record['name']."</td><td>".$record['description']."</td><td>".$record['price']."<td><input class='spinner' name='quantity'></td><td><button type='submit' class='btn btn-success'>Buy</button></td></tr><input type='hidden' name='cart' value='addcart'></form>"; 
+  
+			  		echo "<form action='products/add_cart/".$record['ID']."'/ method='post'><tr><td>".$record['name']."</td><td>".$record['description']."</td><td>".$record['price']."<td>
+			  		<select name='quantity'>
+			  			<option>1</option>
+			  			<option>2</option>
+			  			<option>3</option>
+			  			<option>4</option>
+			  			<option>5</option>
+			  		</select>
+			  		</td><td><button type='submit' class='btn btn-success getquan'>Buy</button></td></tr><input type='hidden' name=".$record['ID']." value=".$record['ID']."></form>"; 
 			  		// var_dump($record);
-			  	} ?>
+			  	} ?><script>
 				
 				</table>
 			</div>
