@@ -1,5 +1,4 @@
 <?php  ?>
-
 <html>
 	<head>
 		<title>Products Listing</title>
@@ -8,7 +7,6 @@
   		<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 		<style type="text/css">
@@ -30,11 +28,7 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script type = "text/javascript"> 
-		//     $(document).ready(function(){
-		//     	// alert ('jquery yes');
-		// 				$( ".spinner" ).spinner({min:0});
-  // });
-  </script>
+  		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -48,7 +42,7 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="#">Ecommerce</a>
+			      <a class="navbar-brand" href="/main/index/">Ecommerce</a>
 			    </div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -61,11 +55,9 @@
 			    	<ul class="nav nav-tabs navbar-right">
   						<li role="presentation" class="dropdown">
     				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-      Your Cart <span class="caret"></span>
-					    </a>
+     					 Your Cart <span class="caret"></span>
+				    </a>
 					    <ul class="dropdown-menu" role="menu">
-
-
 					    	<?php 
 					    		  // var_dump($this->session->all_userdata());
 					    		 if ($this->session->userdata('cart')) {
@@ -90,14 +82,9 @@
 					    		  		}
 					    		  	}
 					    		  }
-					    		  echo "</table>"
-					      //         foreach ($value as $mini_cart => $cartrecord) {
-
-					    		//  {
-					    		// 	echo  $cartrecord['name'].$this->session->userdata('cart');
-					    		// }
-					    	?>
-					   
+					    		  echo "</table>";
+					    		  echo "<a href='/products/checkout/'<button class='btn btn-success'>Checkout</button></a>";
+				    			?>
 					    </ul>
 					  </li>
 					</ul>
@@ -107,18 +94,14 @@
 			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
 			<div class="row">
 			  <div class="col-xs-12 col-md-12">
-			  	
-		
 			  	<table class="table table-striped">
  					<thead>
  						<th>Product</th>
  						<th>Description</th>
  						<th>Price</th>
  						<th>Qty</th>
-
 					</thead>
 					<?php foreach ($value as $key => $record){
-  
 			  		echo "<form action='products/add_cart/".$record['ID']."'/ method='post'><tr><td>".$record['name']."</td><td>".$record['description']."</td><td>".$record['price']."<td>
 			  		<select name='quantity'>
 			  			<option>1</option>
@@ -129,8 +112,7 @@
 			  		</select>
 			  		</td><td><button type='submit' class='btn btn-success getquan'>Buy</button></td></tr><input type='hidden' name=".$record['ID']." value=".$record['ID']."></form>"; 
 			  		// var_dump($record);
-			  	} ?><script>
-				
+			  	} ?>
 				</table>
 			</div>
 		</div>

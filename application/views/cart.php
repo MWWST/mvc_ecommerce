@@ -21,15 +21,12 @@
 		.dropdown-menu {
 			width:300px;
 		}
-
 		.item {
 			padding-left:20px;
 		}
-
 		.minicart td {
 			padding-right:20px;
 		}
-
 		td {
 			padding-bottom: 20px;
 		}
@@ -42,7 +39,6 @@
 		// 				$( ".spinner" ).spinner({min:0});
   // });
   </script>
-
 </head>
 <body>
 		<div class="container">
@@ -56,7 +52,7 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="#">Ecommerce</a>
+			      <a class="navbar-brand" href="/">Ecommerce</a>
 			    </div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -73,38 +69,39 @@
 			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
 			<div class="row">
 			  <div class="col-xs-12 col-md-12">
-
-			  	<table class="table table-striped">
- 					<?php if($this->session->userdata('cart')) {
- 								$total=0;
-					    		echo "<table class='minicart'>
-					    		<thead>
-					    			<th>Product</th>
-					    			<th>Price</th>
-					    			<th>Quan</th>
-				    			</thead>";
-					    		$cart_array=$this->session->userdata('cart');
-					    		krsort($cart_array);
-					    		foreach ($cart_array as $cartkeys => $item) {
-					    		$total+= $item['product_price'];
-					    			echo "<tr><td>".$item['product_name']." "."</td><td>".$item['product_price']."</td><td>"." ".$item['product_quan']."</td><td><a href='/products/remove'><button class='btn btn-danger'>Delete</button></td></tr>";
-					    			// var_dump($item);
-					    		}
-					    		echo"</table>";
-					    	 setlocale(LC_MONETARY, 'en_US');
-					    	  echo "<hr><h5>Total:"." ".money_format('%(#1n',  $total). "\n"."</h5></hr></tr>";
-					    		// echo number_format($total,2,'.','');
-					    	} ?>
-			</div>
-		</div>
-			<div class="row">
-		<?php require_once('./assets/config/config.php'); ?>
-		<form action="charge.php" method="post">
- 		 <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-          data-key="<?php echo $stripe['publishable_key']; ?>"
-          data-amount=<?php echo $total*100;?> data-description="Checkout total"<?php echo number_format($total,2,'.','');?>></script>
-</form>
-			</div>
+<?php 
+		$total=0;
+	  	if ($this->session->userdata('cart')) {
+	    	echo "<table class='table srtiped'>
+		    		<thead>
+		    			<th>Product</th>
+		    			<th>Price</th>
+		    			<th>Quan</th>
+	    			</thead>";
+			}
+	  $cartsession = $this->session->userdata('cart');
+	  foreach ($cartsession as $key => $sessioncart) {
+	  	foreach ($product as $minikey => $check_out_cart) {
+	  		if ($sessioncart['product_id'] == $check_out_cart['ID']){
+	  			echo "<tr><td>".$check_out_cart['name']."</td><td>".$check_out_cart['price']."</td><td>".$sessioncart['product_quan']."</td><td><a href='/products/remove/".$check_out_cart['ID']."/'<button class='btn btn-danger'>Delete</button></a></td><tr>";
+	  			$total += $check_out_cart['price'];
+		  		}
+	  		}   		  	
+	 	 }
+		  echo "</table>";
+		  setlocale(LC_MONETARY, 'en_US');
+	 		echo "<hr><h5>Total:"." ".money_format('%(#1n',  $total). "\n"."</h5></hr>";
+?>
+						</div>
+						</div>
+						<div class="row">
+						<?php require_once('./assets/config/config.php'); ?>
+						<form action="charge.php" method="post">
+						<script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+						data-key="<?php echo $stripe['publishable_key']; ?>"
+						data-amount=<?php echo $total*100;?> data-description="Checkout total"<?php echo number_format($total,2,'.','');?>></script>
+						</form>
+									</div>
 
 </body>
 </html>

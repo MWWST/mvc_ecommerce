@@ -20,15 +20,17 @@
 					'product_id'=>$product['ID'],'product_quan'=>$this->input->post('quantity')
 				);
 			$this->session->set_userdata('cart',$list_cart);
-			var_dump($this->session->all_userdata());
+			// var_dump($this->session->all_userdata());
 			
 			// var_dump($list_cart);
-			// redirect('/');
+			redirect('/');
 		}
 
 		public function checkout(){
-			$this->load->view('cart');
-
+			$this->load->model('Product');
+			$product = $this->Product->display();
+			$product['ID'] = array('ID'=>'ID','name'=>'name','description'=>'description','price'=>'price');
+			$this->load->view('cart',array('product'=>$product));	
 		}
 
 		public function buy(){
@@ -36,9 +38,14 @@
 			
 		}
 
-		public function remove() {
-			// $this->session_unset($id);
+		public function remove($id) {
+			// $this->seession->session_unset('cart'['id']);
+			$delete_product= $this->session->userdata('cart');
+			unset($delete_product[$id]);
+			$this->session->set_userdata('cart',$delete_product);
 			redirect('/products/checkout');
+
+
 
 		}
 
